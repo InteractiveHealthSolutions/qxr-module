@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+ 
+    <changeSet id="QXR-2020041911111" author="hareem.ajaz">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="qxrmodule_encounter_mapper" />
+			</not>
+		</preConditions>
+		<comment>
+			Creating the qxrmodule_encounter_mapper table
+		</comment>
+		<createTable tableName="qxrmodule_encounter_mapper">
+			<column name="encounter_mapper_id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+
+			<column name="order_encounter_id" type="int" />
+			<column name="result_encounter_id" type="int" />
+			<column name="creator" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="date_created" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			<column name="changed_by" type="int" />
+			<column name="date_changed" type="datetime" />
+			<column name="voided_by" type="int" />
+			<column defaultValueBoolean="false" name="voided" type="boolean">
+				<constraints nullable="false" />
+			</column>
+			<column name="date_voided" type="datetime" />
+			<column name="void_reason" type="varchar(255)" />
+			<column name="uuid" type="char(38)">
+				<constraints unique="true" />
+			</column>
+		</createTable>
+		<addForeignKeyConstraint constraintName="qxrmodule_encounter_mapper_order_fk"
+			baseTableName="qxrmodule_encounter_mapper" baseColumnNames="order_encounter_id"
+			referencedTableName="encounter" referencedColumnNames="encounter_id" />
+
+		<addForeignKeyConstraint constraintName="qxrmodule_encounter_mapper_result_fk"
+			baseTableName="qxrmodule_encounter_mapper" baseColumnNames="result_encounter_id"
+			referencedTableName="encounter" referencedColumnNames="encounter_id" />
+
+		<addForeignKeyConstraint constraintName="qxrmodule_encounter_mapper_creator_fk"
+			baseTableName="qxrmodule_encounter_mapper" baseColumnNames="creator"
+			referencedTableName="users" referencedColumnNames="user_id" />
+		<addForeignKeyConstraint constraintName="qxrmodule_encounter_mapper_changed_by_fk"
+			baseTableName="qxrmodule_encounter_mapper" baseColumnNames="changed_by"
+			referencedTableName="users" referencedColumnNames="user_id" />
+		<addForeignKeyConstraint constraintName="qxrmodule_encounter_mapper_voided_by_fk"
+		baseTableName="qxrmodule_encounter_mapper" baseColumnNames="voided_by"
+			referencedTableName="users" referencedColumnNames="user_id" />
+
+	</changeSet>
+	<changeSet author="hareem.ajaz" id="20201504111">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				SELECT COUNT(*) FROM scheduler_task_config
+				WHERE schedulable_class = 'org.openmrs.module.qxr.web.scheduler.tasks.DataFetchScheduler'
+				And name = 'Data Fetch Task'
+			</sqlCheck>
+		</preConditions>
+		<comment>Inserting Data Fetch Task into 'schedule_task_config' table</comment>
+		<insert tableName="scheduler_task_config">
+			<column name="name" value="Data Fetch Task" />
+			<column name="description" value="Periodically fetch data from qxr api" />
+			<column name="schedulable_class" value="org.openmrs.module.qxr.web.scheduler.tasks.DataFetchScheduler" />
+			<column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
+			<column name="start_time" valueDate="2020-04-15T03:20:00" />
+			<column name="repeat_interval" value="900" />
+			<column name="date_created" valueDate="CURRENT_TIMESTAMP" />
+			<column name="created_by" value="1" />
+			<column name="uuid" value="8c20b376-1v2b-11f1-a51v-00249140a5ev" />
+			<column name="start_on_startup" value="1" />
+			<column name="started" value="1" />
+		</insert>
+		
+	</changeSet>
+	
+ 
+</databaseChangeLog>
