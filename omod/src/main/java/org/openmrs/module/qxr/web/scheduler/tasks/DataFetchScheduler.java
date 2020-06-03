@@ -54,7 +54,7 @@ public class DataFetchScheduler extends AbstractTask {
 					Statement stmt = null;
 					String encounterFilterQuery = "Select e.encounter_id encounter_id ,e.patient_id patient_id, p.identifier identifier from hydra.encounter e ,hydra.patient_identifier p where e.patient_id = p.patient_id and encounter_type="
 					        + encounterType.getEncounterTypeId()
-					        + " and encounter_id not in (select order_encounter_id from hydra.hydramodule_encounter_mapper where result_encounter_id is not null)";
+					        + " and encounter_id not in (select order_encounter_id from hydra.qxrmodule_encounter_mapper where result_encounter_id is not null)";
 					Connection conn = null;
 					try {
 						conn = establishDatabaseConnection();
