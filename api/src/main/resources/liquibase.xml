@@ -58,6 +58,29 @@
 			referencedTableName="users" referencedColumnNames="user_id" />
 
 	</changeSet>
+	
+		<changeSet author="hareem.ajaz" id="qxr-metadata-202004211035">  
+	    <comment>insert queries for concept</comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+		       INSERT IGNORE INTO `concept` (`concept_id`,`retired`,`short_name`,`description`,`form_text`,`datatype_id`,`class_id`,`is_set`,`creator`,`date_created`,`version`,`changed_by`,`date_changed`,`retired_by`,`date_retired`,`retire_reason`,`uuid`) VALUES (168077,0,NULL,NULL,NULL,2,7,0,1,'2020-04-21 12:35:53',NULL,1,'2020-04-21 12:35:53',NULL,NULL,NULL,'d3d9j77a-cg7c-431n-9957-bcc0e4ac9a92');
+		       INSERT IGNORE INTO `concept_description` (`concept_id`,`description`,`locale`,`creator`,`date_created`,`changed_by`,`date_changed`,`uuid`) VALUES (168077,'Concept used by hydra for Xray Result Form','en',1,'2020-0-2 08:47:53',NULL,NULL,'42cvd4de-58b6-4979-904b-4b12e99a52dw');
+		       INSERT IGNORE INTO `concept_name` (`concept_id`,`name`,`locale`,`creator`,`date_created`,`voided`,`voided_by`,`date_voided`,`void_reason`,`uuid`,`concept_name_type`,`locale_preferred`,`date_changed`,`changed_by`) VALUES (168077,'XRAY COVID RESULT','en',1,'2020-04-21 08:47:53',0,NULL,NULL,NULL,'d714898u-e08g-4w1d-8c3A-3b918g182q97','FULLY_SPECIFIED',1,NULL,NULL);
+
+	    </sql>    
+	</changeSet>
+	
+	<changeSet author="hareem.ajaz" id="qxr-metadata-202005041036">  
+	    <comment>insert queries for encounter_type</comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+		   INSERT IGNORE INTO `encounter_type` (encounter_type_id,name, description, creator, date_created, retired, retired_by, date_retired, retire_reason, uuid, edit_privilege, view_privilege, changed_by, date_changed) VALUES (412,'Xray Order Form', 'X-ray Order Form', 1, '2020-04-19 12:11:43', 0, NULL,NULL ,NULL , '92639f57-a2a0-49f9-8fd8-5de95013b51e',NULL , NULL,NULL,NULL);
+           INSERT IGNORE INTO `encounter_type` (encounter_type_id,name, description, creator, date_created, retired, retired_by, date_retired, retire_reason, uuid, edit_privilege, view_privilege, changed_by, date_changed) VALUES (413,'Xray Result Form', 'X-ray Result Form', 1, '2020-04-19 12:16:52', 0, NULL, NULL, NULL, 'bf22958e-4c9a-43af-8243-d8f83ff449fe', NULL, NULL, NULL,NULL) 
+	    </sql>    
+	</changeSet>
+	
 	<changeSet author="hareem.ajaz" id="20201504111">
 		<preConditions onFail="MARK_RAN">
 			<sqlCheck expectedResult="0">
@@ -83,5 +106,76 @@
 		
 	</changeSet>
 	
+		<changeSet author="hareem.ajaz" id="qxr-metadata-202006031035">  
+		
+	    <comment>insert queries for concept</comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+		       INSERT IGNORE INTO `concept` (`concept_id`,`retired`,`short_name`,`description`,`form_text`,`datatype_id`,`class_id`,`is_set`,`creator`,`date_created`,`version`,`changed_by`,`date_changed`,`retired_by`,`date_retired`,`retire_reason`,`uuid`) VALUES (168118,0,NULL,NULL,NULL,2,7,0,1,'2020-04-21 12:35:53',NULL,1,'2020-04-21 12:35:53',NULL,NULL,NULL,'c64676b8-4c3b-423b-bda3-4d18c8bd2246');
+		       INSERT IGNORE INTO `concept_description` (`concept_id`,`description`,`locale`,`creator`,`date_created`,`changed_by`,`date_changed`,`uuid`) VALUES (168118,'Concept used by hydra in Xray Result Form','en',1,'2020-0-2 08:47:53',NULL,NULL,'42cvd4de-58b6-4979-904b-4b12e99a52dw');
+		       INSERT IGNORE INTO `concept_name` (`concept_id`,`name`,`locale`,`creator`,`date_created`,`voided`,`voided_by`,`date_voided`,`void_reason`,`uuid`,`concept_name_type`,`locale_preferred`,`date_changed`,`changed_by`) VALUES (168118,'REASON FOR XRAY','en',1,'2020-04-21 08:47:53',0,NULL,NULL,NULL,'d714898u-e08g-4w1d-8c3A-3b918g182q97','FULLY_SPECIFIED',1,NULL,NULL);
+
+	    </sql>    
+	</changeSet>
+	<changeSet author="hareem.ajaz" id="qxr-metadata-202006031036">  
+		
+	    <comment>insert queries for concept</comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+		       INSERT IGNORE INTO `concept` (`concept_id`,`retired`,`short_name`,`description`,`form_text`,`datatype_id`,`class_id`,`is_set`,`creator`,`date_created`,`version`,`changed_by`,`date_changed`,`retired_by`,`date_retired`,`retire_reason`,`uuid`) VALUES (168121,0,NULL,NULL,NULL,2,7,0,1,'2020-04-21 12:35:53',NULL,1,'2020-04-21 12:35:53',NULL,NULL,NULL,'df5504a0-2288-4c83-be4b-81e59fd52fe1');
+		       INSERT IGNORE INTO `concept_description` (`concept_id`,`description`,`locale`,`creator`,`date_created`,`changed_by`,`date_changed`,`uuid`) VALUES (168121,'Concept used by hydra in Xray Result Form','en',1,'2020-0-2 08:47:53',NULL,NULL,'42cvd4de-58b6-4979-904b-4b12e99a52dw');
+		       INSERT IGNORE INTO `concept_name` (`concept_id`,`name`,`locale`,`creator`,`date_created`,`voided`,`voided_by`,`date_voided`,`void_reason`,`uuid`,`concept_name_type`,`locale_preferred`,`date_changed`,`changed_by`) VALUES (168121,'XRAY READ METHOD','en',1,'2020-04-21 08:47:53',0,NULL,NULL,NULL,'d714898u-e08g-4w1d-8c3A-3b918g182q97','FULLY_SPECIFIED',1,NULL,NULL);
+
+	    </sql>    
+	</changeSet>
+	<changeSet author="hareem.ajaz" id="qxr-metadata-202006031037">  
+		
+	    <comment>insert queries for concept</comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+		       INSERT IGNORE INTO `concept` (`concept_id`,`retired`,`short_name`,`description`,`form_text`,`datatype_id`,`class_id`,`is_set`,`creator`,`date_created`,`version`,`changed_by`,`date_changed`,`retired_by`,`date_retired`,`retire_reason`,`uuid`) VALUES (168122,0,NULL,NULL,NULL,2,7,0,1,'2020-04-21 12:35:53',NULL,1,'2020-04-21 12:35:53',NULL,NULL,NULL,'3ec4ebf7-db4a-45fa-b0c1-f859d41df2c9');
+		       INSERT IGNORE INTO `concept_description` (`concept_id`,`description`,`locale`,`creator`,`date_created`,`changed_by`,`date_changed`,`uuid`) VALUES (168122,'Concept used by hydra in Xray Result Form','en',1,'2020-0-2 08:47:53',NULL,NULL,'42cvd4de-58b6-4979-904b-4b12e99a52dw');
+		       INSERT IGNORE INTO `concept_name` (`concept_id`,`name`,`locale`,`creator`,`date_created`,`voided`,`voided_by`,`date_voided`,`void_reason`,`uuid`,`concept_name_type`,`locale_preferred`,`date_changed`,`changed_by`) VALUES (168122,'XRAY COVID RESULT','en',1,'2020-04-21 08:47:53',0,NULL,NULL,NULL,'d714898u-e08g-4w1d-8c3A-3b918g182q97','FULLY_SPECIFIED',1,NULL,NULL);
+
+	    </sql>    
+	</changeSet>
+    <changeSet author="hareem.ajaz" id="qxr-metadata-202006031038">  
+	    <comment>insert queries for hydramodule_field </comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+		        INSERT IGNORE INTO hydra.`hydramodule_field` (`field_id`,`field_type_id`,`concept_id`,`select_multiple`,`table_name`,`attribute_name`,`default_value`,`name`,`description`,`creator`,`date_created`,`changed_by`,`date_changed`,`retired`,`retired_by`,`date_retired`,`retire_reason`,`uuid`) VALUES (1070,7,168118,0,NULL,'Coded',NULL,'Reason for X-ray',NULL,1,'2020-01-31 13:55:58',NULL,NULL,0,NULL,NULL,NULL,'f75fcf61-d882-434f-9195-6cbcfa18a264');
+				INSERT IGNORE INTO hydra.`hydramodule_field` (`field_id`,`field_type_id`,`concept_id`,`select_multiple`,`table_name`,`attribute_name`,`default_value`,`name`,`description`,`creator`,`date_created`,`changed_by`,`date_changed`,`retired`,`retired_by`,`date_retired`,`retire_reason`,`uuid`) VALUES (1071,8,168121,0,NULL,'Coded',NULL,'X-ray Read Method',NULL,1,'2020-01-31 13:55:58',NULL,NULL,0,NULL,NULL,NULL,'052bc17e-0e8c-4752-83fb-16d7dc11145e');  
+	    		INSERT IGNORE INTO hydra.`hydramodule_field` (`field_id`,`field_type_id`,`concept_id`,`select_multiple`,`table_name`,`attribute_name`,`default_value`,`name`,`description`,`creator`,`date_created`,`changed_by`,`date_changed`,`retired`,`retired_by`,`date_retired`,`retire_reason`,`uuid`) VALUES (1072,7,168122,0,NULL,'Coded',NULL,'X-ray Covid Result',NULL,1,'2020-03-20 09:06:33',NULL,NULL,0,NULL,NULL,NULL,'7fb1e819-60c3-431f-ba6a-19367c0f8faa');
+			
+	    </sql>    
+	</changeSet>
+      <changeSet author="hareem.ajaz" id="qxr-metadata-202006041040">  
+	    <comment>insert queries for hydramodule_form </comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+               INSERT IGNORE INTO hydra.`hydramodule_form` (form_id, form_actions, core, component_id, name, description, creator, date_created, changed_by, date_changed, retired, retired_by, date_retired, retire_reason, uuid, encounter_type_id) VALUES (NULL, NULL, '0', NULL, 'Xray Result Form', 'X-ray Result Form', '1', '2020-04-19 12:17:20', '1', '2020-04-19 12:17:20', '0', NULL, NULL, NULL, 'bc8e39ef-7683-4344-a6a4-64fb7b8b6443', '413')
+	
+	    </sql>    
+	</changeSet>
+	 <changeSet author="hareem.ajaz" id="qxr-metadata-202006031039">  
+	    <comment>insert queries for hydramodule_form_field </comment>
+	    <sql
+			splitStatements="true"
+			stripComments="true">         
+           INSERT IGNORE INTO hydra.`hydramodule_form_field` (form_field_id, display_order, min_occurrence, max_occurrence, min_value, max_value, min_length, max_length, min_selections, allow_future_date, allow_past_date, mandatory, default_value, regix, characters, display_text, form_id, field_id, name, description, creator, date_created, changed_by, date_changed, retired, retired_by, date_retired, retire_reason, uuid, scoreable, error_message, allow_decimal, score_field, create_patient, group_id, parent_id, disabled) VALUES ('2181', '0', '0', '0', NULL, NULL, NULL, NULL, '0', '0', '0', '0', NULL, NULL, NULL, NULL, '229', '1071', 'X-ray Read Method', NULL, '1', '2020-04-19 12:17:20', '254', '2020-04-19 12:17:20', '0', NULL, NULL, NULL, '6e560be9-3fea-45d6-b212-b1fa6364225d', '0', NULL, '0', NULL, '0', NULL, NULL, '0');
+           INSERT IGNORE INTO hydra.`hydramodule_form_field` (form_field_id, display_order, min_occurrence, max_occurrence, min_value, max_value, min_length, max_length, min_selections, allow_future_date, allow_past_date, mandatory, default_value, regix, characters, display_text, form_id, field_id, name, description, creator, date_created, changed_by, date_changed, retired, retired_by, date_retired, retire_reason, uuid, scoreable, error_message, allow_decimal, score_field, create_patient, group_id, parent_id, disabled) VALUES ('2182', '1', '0', '0', NULL, NULL, NULL, NULL, '0', '0', '0', '0', NULL, NULL, NULL, NULL, '229', '1072', 'X-ray Covid Result', NULL, '1', '2020-04-19 12:17:20', '254', '2020-04-19 12:17:20', '0', NULL, NULL, NULL, 'd9b540b9-8130-4098-bf4c-6af9347195e1', '0', NULL, '0', NULL, '0', NULL, NULL, '0');
+           INSERT IGNORE INTO hydra.`hydramodule_form_field` (form_field_id, display_order, min_occurrence, max_occurrence, min_value, max_value, min_length, max_length, min_selections, allow_future_date, allow_past_date, mandatory, default_value, regix, characters, display_text, form_id, field_id, name, description, creator, date_created, changed_by, date_changed, retired, retired_by, date_retired, retire_reason, uuid, scoreable, error_message, allow_decimal, score_field, create_patient, group_id, parent_id, disabled) VALUES ('2183', '2', '0', '0', NULL, NULL, NULL, NULL, '0', '0', '0', '0', NULL, NULL, NULL, NULL, '229', '1073', 'RADIOLOGIST COMMENTS', NULL, '1', '2020-04-19 12:17:20', '254', '2020-04-19 12:17:20', '0', NULL, NULL, NULL, '7a163717-3c00-4015-a71d-53c29db59155', '0', NULL, '0', NULL, '0', NULL, NULL, '0');
+	
+	    </sql>    
+	</changeSet>
+    
+    
+ 
+ 
  
 </databaseChangeLog>
