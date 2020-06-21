@@ -23,6 +23,11 @@
 			<artifactId>openmrs-web</artifactId>
             <scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>hydra-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+		</dependency>
 		 <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>legacyui-omod</artifactId>
