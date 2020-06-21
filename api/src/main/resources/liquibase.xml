@@ -81,7 +81,7 @@
 	    </sql>    
 	</changeSet>
 	
-	<changeSet author="hareem.ajaz" id="20201504111">
+	<changeSet author="hareem.ajaz" id="qxrmodule-20201504111">
 		<preConditions onFail="MARK_RAN">
 			<sqlCheck expectedResult="0">
 				SELECT COUNT(*) FROM scheduler_task_config
