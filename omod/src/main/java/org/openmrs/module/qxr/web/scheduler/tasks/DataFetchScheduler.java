@@ -22,6 +22,7 @@ import org.json.simple.parser.ParseException;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.User;
@@ -31,6 +32,7 @@ import org.openmrs.module.qxr.model.QXRModuleEncounterMapper;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.openmrs.util.OpenmrsConstants;
 
+import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -40,6 +42,8 @@ public class DataFetchScheduler extends AbstractTask {
 	private static final Log log = LogFactory.getLog(DataFetchScheduler.class);
 	
 	private QXRService service = Context.getService(QXRService.class);
+	
+	//private HydraService hydraService = Context.getService(HydraService.class);
 	
 	@Override
 	public void execute() {
@@ -156,7 +160,35 @@ public class DataFetchScheduler extends AbstractTask {
 					resultEncounter.addObs(obs);
 				}
 				
-				Context.getEncounterService().saveEncounter(resultEncounter);
+				Location location = Context.getLocationService().getLocation("Unknown Location");
+				
+				resultEncounter.setLocation(location);
+				
+				Encounter savedResultencounter = Context.getEncounterService().saveEncounter(resultEncounter);
+				
+				url = "https://hydratest.ihsinformatics.com/openmrs/ws/rest/v1/hydra/saveformencounterqxr?patientId="
+				        + patientId + "&resultencounterId=" + savedResultencounter.getEncounterId();
+				
+				String credential = Credentials.basic("Qxr-User", "Qxruser123");
+				
+				request = new Request.Builder().url(url).method("GET", null).addHeader("Authorization", credential).build();
+				
+				response = client.newCall(request).execute();
+				
+				//				HydramoduleForm form = hydraService.getHydraModuleFormByName("Xray Result Form");
+				//				
+				//				HydramodulePatientWorkflow hydramodulePatientWorkflow = hydraService
+				//				        .getHydramodulePatientWorkflowByPatient(patientId);
+				//				
+				//				HydramoduleComponentForm componentForm = hydraService.getComponentFormByFormAndWorkflow(form,
+				//					    hydramodulePatientWorkflow.getWorkflow());
+				//				
+				//				HydramoduleFormEncounter formEncounter = new HydramoduleFormEncounter();
+				//				
+				//				formEncounter.setComponentForm(componentForm);
+				//				formEncounter.setEncounter(resultEncounter);
+				//				
+				//				hydraService.saveFormEncounter(formEncounter);
 				
 				QXRModuleEncounterMapper encounterMapper = new QXRModuleEncounterMapper();
 				
