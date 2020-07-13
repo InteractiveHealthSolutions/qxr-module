@@ -166,10 +166,10 @@ public class DataFetchScheduler extends AbstractTask {
 				
 				Encounter savedResultencounter = Context.getEncounterService().saveEncounter(resultEncounter);
 				
-				url = "https://ihnhydra.ihsinformatics.com/openmrs/ws/rest/v1/hydra/saveformencounterqxr?patientId="
+				url = "https://hydratest.ihsinformatics.com/openmrs/ws/rest/v1/hydra/saveformencounterqxr?patientId="
 				        + patientId + "&resultencounterId=" + savedResultencounter.getEncounterId();
 				
-				String credential = Credentials.basic("Qxr-User", "QxrUser123");
+				String credential = Credentials.basic("Qxr-User", "Qxruser123");
 				
 				request = new Request.Builder().url(url).method("GET", null).addHeader("Authorization", credential).build();
 				
