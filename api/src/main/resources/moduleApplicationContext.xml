@@ -23,6 +23,10 @@
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
     
+    <bean id="qxrDao"
+		class="org.openmrs.module.qxr.dao.impl.QXRDaoImpl">
+	</bean>
+    
     <bean id="qxr.QXRService"
             class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager">
@@ -30,7 +34,7 @@
         </property>
         <property name="target">
             <bean class="org.openmrs.module.qxr.api.impl.QXRServiceImpl">
-                <property name="dao" ref="qxr.QXRDao" />
+                <property name="qxrDao" ref="qxrDao" />
             </bean>
         </property>
         <property name="preInterceptors">
