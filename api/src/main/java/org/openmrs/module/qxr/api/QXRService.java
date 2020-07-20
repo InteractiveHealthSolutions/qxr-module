@@ -19,4 +19,6 @@ public interface QXRService extends OpenmrsService {
 	
 	List<QXRModuleEncounterMapper> getEncounterMapperByPatient(String patientIdentifier) throws APIException;
 	
+	QXRModuleEncounterMapper getEncounterMapperByImageID(String UID) throws APIException;
+	
 }

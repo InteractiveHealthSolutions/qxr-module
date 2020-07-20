@@ -174,6 +174,25 @@
 	    </sql>    
 	</changeSet>
     
+    <changeSet author="hareem.ajaz" id="qxr-202007131444">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="qxrmodule_encounter_mapper"
+					columnName="image_id" />
+			</not>
+		</preConditions>
+		<comment>
+			Adding column 'image_id' in qxrmodule_encounter_mapper
+			table
+		</comment>
+		<addColumn tableName="qxrmodule_encounter_mapper">
+			<column name="image_id" type="VARCHAR(255)">
+			
+			<constraints unique="true" />
+			
+			</column>
+		</addColumn>	
+	</changeSet>
     
  
  

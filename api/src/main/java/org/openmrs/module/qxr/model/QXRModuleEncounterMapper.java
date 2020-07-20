@@ -35,6 +35,9 @@ public class QXRModuleEncounterMapper extends BaseOpenmrsData implements Seriali
 	@JoinColumn(name = "result_encounter_id", referencedColumnName = "encounter_id")
 	private Encounter resultEncounterId;
 	
+	@Column(name = "image_id", unique = true)
+	private String imageId;
+	
 	public Encounter getResultEncounterId() {
 		return resultEncounterId;
 	}
@@ -57,6 +60,14 @@ public class QXRModuleEncounterMapper extends BaseOpenmrsData implements Seriali
 	
 	public void setOrderEncounterId(Encounter orderEncounterId) {
 		this.orderEncounterId = orderEncounterId;
+	}
+	
+	public String getImageId() {
+		return imageId;
+	}
+	
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
 	}
 	
 	@Override

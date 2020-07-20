@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -113,6 +117,7 @@ public class DataFetchScheduler extends AbstractTask {
 				log.error("Invalid Response " + responseCode + " " + response.message());
 			} else {
 				Scanner sc = new Scanner(response.body().string());
+				
 				String data = "";
 				while (sc.hasNext()) {
 					data += sc.nextLine();
@@ -125,12 +130,50 @@ public class DataFetchScheduler extends AbstractTask {
 				
 				String covidResult = "";
 				
+				String imageID = "";
+				
 				// considering data on index 0 because its the latest
+				JSONObject metaDataObj;
+				JSONObject element;
 				
-				JSONObject element = (JSONObject) jsonArray.get(0);
-				JSONObject metaDataObj = (JSONObject) element.get("metadata");
-				covidResult = (String) metaDataObj.get("covid_score");
+				if (jsonArray.size() > 1) {
+					long minDiff = 0;
+					JSONObject selectedJsonObject = null;
+					for (int i = 0; i < jsonArray.size(); i++) {
+						element = (JSONObject) jsonArray.get(i);
+						metaDataObj = (JSONObject) element.get("metadata");
+						String registeredDate = (String) metaDataObj.get("RegisteredDateTime");
+						DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+						DateTime registerDateTime = formatter.parseDateTime(registeredDate);
+						DateTime encounterDateTime = new DateTime(orderEncounter.getEncounterDatetime());
+						long diff = registerDateTime.getMillis() - encounterDateTime.getMillis();
+						if (diff <= minDiff) {
+							minDiff = diff;
+							selectedJsonObject = (JSONObject) jsonArray.get(i);
+						}
+						
+					}
+					metaDataObj = (JSONObject) selectedJsonObject.get("metadata");
+					
+					covidResult = (String) metaDataObj.get("covid_score");
+					imageID = (String) metaDataObj.get("imageID");
+					
+				} else {
+					element = (JSONObject) jsonArray.get(0);
+					metaDataObj = (JSONObject) element.get("metadata");
+					
+					covidResult = (String) metaDataObj.get("covid_score");
+					imageID = (String) metaDataObj.get("imageID");
+					
+				}
 				
+				QXRModuleEncounterMapper encounterMapper = service.getEncounterMapperByImageID(imageID);
+				
+				if (encounterMapper != null) {
+					log.error("Image id " + imageID + " already exist against the order id "
+					        + encounterMapper.getOrderEncounterId().getEncounterId());
+					return;
+				}
 				Encounter resultEncounter = new Encounter();
 				
 				EncounterType encounterType = Context.getEncounterService().getEncounterType("Xray Result Form");
@@ -190,10 +233,11 @@ public class DataFetchScheduler extends AbstractTask {
 				//				
 				//				hydraService.saveFormEncounter(formEncounter);
 				
-				QXRModuleEncounterMapper encounterMapper = new QXRModuleEncounterMapper();
+				encounterMapper = new QXRModuleEncounterMapper();
 				
 				encounterMapper.setOrderEncounterId(orderEncounter);
 				encounterMapper.setResultEncounterId(resultEncounter);
+				encounterMapper.setImageId(imageID);
 				encounterMapper.setCreator(user);
 				encounterMapper.setDateCreated(new Date());
 				
