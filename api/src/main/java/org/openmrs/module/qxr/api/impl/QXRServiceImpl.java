@@ -12,36 +12,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class QXRServiceImpl extends BaseOpenmrsService implements QXRService {
 	
 	@Autowired
-	private QXRDao dao;
+	private QXRDao qxrDao;
 	
-	public void setDao(QXRDao dao) {
-		this.dao = dao;
+	public void setqxrDao(QXRDao qxrDao) {
+		this.qxrDao = qxrDao;
 	}
 	
 	@Override
 	public QXRModuleEncounterMapper saveQxrmoduleEncounterMapper(QXRModuleEncounterMapper qxrmoduleEncounterMapper)
 	        throws APIException {
-		return dao.saveQxrmoduleEncounterMapper(qxrmoduleEncounterMapper);
+		return qxrDao.saveQxrmoduleEncounterMapper(qxrmoduleEncounterMapper);
 	}
 	
 	@Override
 	public List<QXRModuleEncounterMapper> getAllQxrmoduleEncounterMapper() throws APIException {
-		return dao.getAllQXRmoduleEncounterMapper();
+		return qxrDao.getAllQXRmoduleEncounterMapper();
 	}
 	
 	@Override
 	public QXRModuleEncounterMapper getQXRmoduleEncounterMapper(String uuid) throws APIException {
-		return dao.getQXRmoduleEncounterMapper(uuid);
+		return qxrDao.getQXRmoduleEncounterMapper(uuid);
 	}
 	
 	@Override
 	public List<QXRModuleEncounterMapper> getEncounterMapperByPatient(String patientIdentifier) throws APIException {
-		return dao.getEncounterMapperByPatient(patientIdentifier);
+		return qxrDao.getEncounterMapperByPatient(patientIdentifier);
 	}
 	
 	@Override
 	public QXRModuleEncounterMapper getEncounterMapperByImageID(String UID) throws APIException {
-		return dao.getQXRmoduleEncounterMapperByImageID(UID);
+		return qxrDao.getQXRmoduleEncounterMapperByImageID(UID);
 	}
 	
 }

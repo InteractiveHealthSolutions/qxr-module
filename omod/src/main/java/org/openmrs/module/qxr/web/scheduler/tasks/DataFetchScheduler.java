@@ -133,50 +133,44 @@ public class DataFetchScheduler extends AbstractTask {
 				String imageID = "";
 				
 				// considering data on index 0 because its the latest
-				JSONObject metaDataObj ;
-				JSONObject element ;
+				JSONObject metaDataObj;
+				JSONObject element;
 				
-                if(jsonArray.size() > 1) {
-                	long minDiff = 0;
-                	JSONObject selectedJsonObject = null;
-                	for(int i = 0 ; i < jsonArray.size() ; i++) {
-    					element = (JSONObject) jsonArray.get(i);
-    					metaDataObj = (JSONObject) element.get("metadata");
-    					String registeredDate = (String) metaDataObj.get("RegisteredDateTime");
-    					DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-    					DateTime registerDateTime = formatter.parseDateTime(registeredDate);
-    					DateTime encounterDateTime = new DateTime(orderEncounter.getEncounterDatetime());
-    					long diff = registerDateTime.getMillis() - encounterDateTime.getMillis();
-    					if(diff <= minDiff)
-    					{
-    						minDiff = diff;
-        					selectedJsonObject = (JSONObject) jsonArray.get(i);
-    					}
-    					
-    					
-    				}
-                	metaDataObj = (JSONObject) selectedJsonObject.get("metadata");
-    				
-    				covidResult = (String) metaDataObj.get("covid_score");
-    				imageID = (String) metaDataObj.get("imageID");
-    			
-                }
-                else {
-                	element = (JSONObject) jsonArray.get(0);
-    				metaDataObj = (JSONObject) element.get("metadata");
-    				
-    				covidResult = (String) metaDataObj.get("covid_score");
-    				imageID = (String) metaDataObj.get("imageID");
-    			
-                }
-
-				
-				
+				if (jsonArray.size() > 1) {
+					long minDiff = 0;
+					JSONObject selectedJsonObject = null;
+					for (int i = 0; i < jsonArray.size(); i++) {
+						element = (JSONObject) jsonArray.get(i);
+						metaDataObj = (JSONObject) element.get("metadata");
+						String registeredDate = (String) metaDataObj.get("RegisteredDateTime");
+						DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+						DateTime registerDateTime = formatter.parseDateTime(registeredDate);
+						DateTime encounterDateTime = new DateTime(orderEncounter.getEncounterDatetime());
+						long diff = registerDateTime.getMillis() - encounterDateTime.getMillis();
+						if (diff <= minDiff) {
+							minDiff = diff;
+							selectedJsonObject = (JSONObject) jsonArray.get(i);
+						}
+						
+					}
+					metaDataObj = (JSONObject) selectedJsonObject.get("metadata");
+					
+					covidResult = (String) metaDataObj.get("covid_score");
+					imageID = (String) metaDataObj.get("imageID");
+					
+				} else {
+					element = (JSONObject) jsonArray.get(0);
+					metaDataObj = (JSONObject) element.get("metadata");
+					
+					covidResult = (String) metaDataObj.get("covid_score");
+					imageID = (String) metaDataObj.get("imageID");
+					
+				}
 				
 				QXRModuleEncounterMapper encounterMapper = service.getEncounterMapperByImageID(imageID);
 				
 				if (encounterMapper != null) {
-					log.error("Image id "+imageID + " already exist against the order id "
+					log.error("Image id " + imageID + " already exist against the order id "
 					        + encounterMapper.getOrderEncounterId().getEncounterId());
 					return;
 				}

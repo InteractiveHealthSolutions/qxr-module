@@ -1,4 +1,4 @@
-package prg.openmrs.module.qxr.dao.impl;
+package org.openmrs.module.qxr.dao.impl;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import org.openmrs.module.qxr.model.QXRModuleEncounterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("qxr.QXRDao")
+//@Repository("dao")
 @Transactional
 public class QXRDaoImpl implements QXRDao {
 	
